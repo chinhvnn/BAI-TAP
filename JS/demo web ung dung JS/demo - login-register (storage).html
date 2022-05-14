@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      #validate, #validateLogin{
+        color: red;
+      }
+      #infoUser{
+        padding: 50px;
+        color: blue;
+        font-weight: bold;
+      }
+      .content{
+        height: 500px;
+        background-color: beige;
+      }
+    </style>
+    <title>DEMO FORM LOGIN-REGISTER (JS STORAGE)</title>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Link</a>
+                    </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0" id="login-register-form">
+                    <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#registerModal">
+                        REGISTER
+                      </button>
+                    <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModal">
+                        LOGIN
+                      </button>
+                  </form>
+                  <div>
+                    <span id="userEmailLogin"></span>
+                    <button type="button" class="btn btn-dark mr-2" id='logoutClick'>
+                      LOGOUT
+                    </button>
+                  </div>
+                </div>
+              </nav>
+              <!-- Modal DANG NHAP-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ĐĂNG NHẬP</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email address</label>
+                                  <input type="email" class="form-control" id="inputEmailLogin" aria-describedby="emailHelp" placeholder="Enter email">
+                                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Password</label>
+                                  <input type="password" class="form-control" id="inputPassLogin" placeholder="Password">
+                                </div>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <div id="validateLogin"></div>
+                              </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="loginClick">Đăng nhập</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Modal DANG KY-->
+                <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ĐĂNG KÝ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="exampleInput">Full Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Name" id="inputName">
+                                  </div>
+                                <div class="form-group">
+                                    <label for="exampleInput">Nuber phone</label>
+                                    <input type="text" class="form-control" placeholder="Enter Number Phone" id="inputPhone">
+                                  </div>
+                                <div class="form-group">
+                                    <label for="exampleInput">Address</label>
+                                    <input type="text" class="form-control" placeholder="Enter Address" id="inputAdd">
+                                  </div>
+                                <div class="form-group">
+                                    <label for="exampleInput">Nuber Zipcode</label>
+                                    <input type="text" class="form-control" placeholder="Enter Zip code" id="inputZipcode">
+                                  </div>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email address</label>
+                                  <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputPassword1">Password</label>
+                                  <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                </div>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input">
+                                  <label class="form-check-label">I agree to join your team</label>
+                                </div>
+                                <div id="validate"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="regClick">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+        </div>
+        <div class="content">
+            <div id="infoUser"></div>
+            <div id="clock">
+              <span id="gio">0:</span>
+              <span id="phut">0:</span>
+              <span id="giay">:</span>
+              <div>
+                <button type="button" class="btn btn-primary" id="clickStartClock">Start</button>
+                <button type="button" class="btn btn-primary" id="clickStopClock">Stop</button>
+              </div>
+            </div>
+        </div>
+        <div>
+            @ Copryright by Chinh 2022 
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="./storage.js"></script>
+<script>
+  //clock
+  var giay = 0;
+  var phut = 0;
+  var gio = 0;
+  var clock2;
+
+  $('#clickStartClock').on( "click", function clock() {
+      clock2 = setInterval(function(){
+        $('#giay').html(++giay);
+        if(giay > 4){
+          $('#phut').html(++phut+':');
+          giay = 0;
+        }
+        if(phut > 4){
+          $('#gio').html(++gio+':');
+          phut = 0;
+        }
+      }, 1000);
+  });   
+  
+  $('#clickStopClock').on( "click", function (){
+  console.log('asds');
+  clearInterval(clock2);
+    
+  });    
+  
+
+  //init
+  var userArr = [];
+  var storage = JSON.parse(localStorage.getItem('infoUserFE')) || [];
+  if (storage.length > 0){
+    userArr = storage;
+  }
+
+  $('#logoutClick').hide();
+
+  // REGISTER CLICK
+  document.getElementById('regClick').addEventListener('click',function(){
+    var inputName = document.getElementById('inputName');
+    var inputPhone = document.getElementById('inputPhone');
+    var inputAdd = document.getElementById('inputAdd');
+    var inputZipcode = document.getElementById('inputZipcode');
+    var inputEmail = document.getElementById('inputEmail');
+    var inputPassword = document.getElementById('inputPassword');
+
+    var flagValidate = true;
+    document.getElementById('validate').innerHTML ='';
+    if (!(new RegExp('[a-z]','g').test(inputName.value))){
+      document.getElementById('validate').innerHTML+=`<p>Tên nhập không đúng </p>`
+      flagValidate = false;
+    } else 
+    if (!(new RegExp('[0-9]{9,11}','g').test(inputPhone.value))){
+      document.getElementById('validate').innerHTML+=`<p>Số điện thoại nhập không đúng </p>`
+      flagValidate = false;
+    } else
+    if (!(new RegExp('[0-9]','g').test(inputZipcode.value))){
+      document.getElementById('validate').innerHTML+=`<p>Zipcode nhập không đúng </p>`
+      flagValidate = false;
+    } else
+    if (!(new RegExp('^[0-9,a-z]+\@[0-9,a-z]+(\.[a-z]+)+$','g').test(inputEmail.value))){
+      document.getElementById('validate').innerHTML+=`<p>Email nhập không đúng </p>`
+      flagValidate = false;
+    } else
+    if (!(new RegExp('.{6,20}','g').test(inputPassword.value))){
+      document.getElementById('validate').innerHTML+=`<p>Password 6-20 ký tự </p>`
+      flagValidate = false;
+    }
+
+    //check email unique
+    for (const item of storage) {
+      if(inputEmail.value == item.email){
+        document.getElementById('validate').innerHTML+=`<p>Email bị trùng </p>`
+        flagValidate = false;
+      }
+    }
+
+    // XU LY NEU VALIDATE DUNG
+    if (flagValidate){
+      document.getElementById('validate').innerHTML='';
+      userArr.push(
+        {
+          name: inputName.value,
+          phone: inputPhone.value,
+          add: inputAdd.value,
+          zipCode: inputZipcode.value,
+          email: inputEmail.value,
+          password: inputPassword.value
+        }
+        );
+        localStorage.setItem('infoUserFE', JSON.stringify(userArr));
+        console.log('vao trong xu ly register');
+        $('#registerModal').modal('hide');
+        location.reload()
+      }
+  });
+
+  // LOGIN
+  document.getElementById('loginClick').addEventListener('click',function(){
+    var inputEmailLogin = document.getElementById('inputEmailLogin');
+    var inputPassLogin = document.getElementById('inputPassLogin');
+    
+    if(storage.length > 0){
+      for (const item of storage) {
+        if (inputEmailLogin.value === item.email && inputPassLogin.value === item.password){
+          console.log("login ok");
+          $('#exampleModal').modal('hide');
+          $('#login-register-form').hide();
+          $('#logoutClick').show();
+          $('#userEmailLogin').html(inputEmailLogin.value);
+          $('#infoUser').html(
+                `<h3>INFO USER LOGIN</h3>
+                <p>Name: ${item.name}</p>
+                <p>Phone: ${item.phone}</p>
+                <p>Address: ${item.add}</p>
+                <p>Zipcode: ${item.zipCode}</p>
+                <p>Email: ${item.email}</p>`
+          );
+          break;
+        }
+        $('#validateLogin').html('Thông tin login trật rồi');
+        console.log("thong tin login k dung");
+      }
+    }else {$('#validateLogin').html('Không có dữ liệu đăng nhập');}
+  });
+
+  //LOGOUT
+    document.getElementById('logoutClick').addEventListener('click', function(){
+    console.log('log out');
+    $('#login-register-form').show();
+    $('#logoutClick').hide();
+    $('#userEmailLogin').html('');
+    $('#infoUser').html('');
+    location.reload()
+  });
+
+</script>
+</html>

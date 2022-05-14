@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="view">hehe
+        
+    </p>
+    
+</body>
+<script>
+
+    let en, total=0, enCount=0; 
+    do{
+        en = prompt("Enter number \n or enter 999 to end entries", 999);
+        en = parseInt(en);
+        if (en >= 0 && en <= 100){
+            total +=en;
+            enCount++;
+        }
+        else if(en != 999){
+            alert("Enter not valid 0-100 or Enter 999 to end entries");
+        }
+
+    } while (en !=999)
+
+    let str = "Total: "+total+"<br> Entry count:"+enCount+"<br> Average:"+total/enCount;
+     document.getElementById('view').innerHTML = str;
+    
+
+
+
+    // let StudentInfo = {
+    //     index : '1',
+    //     nameStudent: 'Toan',
+    //     score: {
+    //         Math: 10,
+    //         Geo: 10
+    //     },
+    //     age : entry,
+    //     run : diem()
+    // };
+    // console.log(StudentInfo);
+    // function diem(){
+    //     return "asdsad";
+    // }
+</script>
+</html>
