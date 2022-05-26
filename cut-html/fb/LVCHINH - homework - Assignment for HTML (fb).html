@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        /* COMMON CSS */
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            width: 80%;
+            margin: 10px auto;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            background-color: #edf0f6;
+        }
+
+        a {
+            text-decoration: none;
+            color: dodgerblue;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            margin-bottom: 0px;
+        }
+
+        p {
+            margin: 10px 0px 10px 0px;
+        }
+
+        input {
+            margin-left: 0;
+            border-radius: 0.3em;
+        }
+        input:focus {
+            outline: none !important;
+            box-shadow: 0 0 10px dodgerblue;
+        }       
+        button {
+            border-radius: 0.3em;
+            transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: rgba(252, 252, 252, 0.027);
+            color: black;
+        }
+
+        hr {
+            border: 0;
+            clear: both;
+            display: block;
+            width: 96%;
+            background-color: grey;
+            height: 1px;
+        }
+
+        .note {
+            font-size: 14px;
+        }
+
+        .white-color {
+            color: white;
+            /* text-shadow: 0.05em 0.05em black; */
+        }
+
+        .grey-color {
+            color: grey;
+            /* text-shadow: 0.05em 0.05em black; */
+        }
+
+        /* HEADER CSS */
+        .header {
+            flex: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #3b5997;
+        }
+
+        .logo {
+            flex-grow: 1;
+        }
+        .logo img{
+            height: 100%s;
+        }
+        .login {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px;
+            color: white;
+        }
+
+        .username,
+        .password {
+            margin: 0 15px 5px 0;
+            align-self: center;
+        }
+
+        .login-btn {
+            align-self: center;
+            margin-bottom: 5px;
+            background-color: #889dc8;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 12px 0 rgba(0, 0, 0, 0.19);
+            text-shadow: 2px 2px rgb(0, 0, 0, 0.2);
+        }
+
+        /* DESCRIPT CSS */
+        .des {
+            flex: 40%;
+            padding: 10px 100px 10px 10px;
+            margin-top: 90px;
+        }
+
+        .des img {
+            height: 50px;
+            vertical-align: middle;
+            margin: 20px;
+        }
+
+        .des1,
+        .des2,
+        .des3 {
+            display: flex;
+            align-items: center;
+        }
+
+        /* SIGNUP CSS */
+        .signup {
+            flex: 35%;
+            padding: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .input-group input {
+            margin: 10px 0px 10px 0px;
+            padding-left: 10px;
+            font-size: 20px;
+            width: 98%;
+            height: 2em;
+            border: 1px solid lightgrey;
+        }
+
+        .name {
+            display: flex;
+        }
+
+        .fname {
+            margin-right: 3% !important;
+
+        }
+
+        .signup select {
+            font-size: 16px;
+            margin: 5px 0px 10px 0px;
+        }
+
+        .gender input {
+            margin: 10px 10px 0px 10px;
+            appearance: none; /* XOA HIEN THI CU*/
+            border-radius: 50%;
+            height: 1em;
+            width: 1em;
+            border: 1px solid ;
+        }
+        .gender input:checked {
+            color: white;
+            background-color: dodgerblue;
+        }
+
+        .choose-birthday{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: -10px;
+        }
+        .choose-birthday div{
+            height: 35px;
+            width: 200px;
+        }
+        .choose-birthday select{
+            height: 35px;
+            border-radius: 0.25em;
+        }
+        .choose-birthday p{
+            height: 35px;
+            flex: 30%;
+            margin-left: 10px;
+        }
+        .signup-btn {
+            background: #4CAF50;
+            width: 40%;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: white;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            text-shadow: 2px 2px rgb(0, 0, 0, 0.2);
+        }
+
+        #err {
+            color: red;
+            font-size: 1rem;
+        }
+
+        /* FOOTER CSS */
+        footer{
+            margin-top: 30px;
+        }
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .languages div {
+            padding: 10px 10px 0px 5px;
+            align-self: center;
+        }
+
+        .link-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .link-list div {
+            padding: 0px 10px 0px 5px;
+        }
+
+        /* RESPONSIVE CSS*/
+        .login-mobile {
+            display: none;
+
+        }
+
+        .login-mobile input {
+            margin: 10px 0px 10px 0px;
+            padding-left: 10px;
+            font-size: 20px;
+            width: 97%;
+            height: 2em;
+            border: 1px solid lightgrey;
+        }
+
+        .login-mobile-btn {
+            margin: 15px 0px 15px 0px;
+            background-color: dodgerblue;
+            color: white;
+            height: 2.5rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 12px 0 rgba(0, 0, 0, 0.19);
+            text-shadow: 2px 2px rgb(0, 0, 0, 0.2);
+        }
+
+        @media only screen and (max-width: 768px) {
+            .login {
+                display: none;
+            }
+
+            .signup {
+                display: none;
+            }
+
+            .des {
+                display: none;
+            }
+
+            .login-mobile {
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                margin: 30px 16px 10px 20px;
+            }
+            .login-mobile a{
+                align-self: center;
+                color: dodgerblue;
+            }
+
+            .signup-btn {
+                width: 100%;
+            }
+        }
+        @media only screen and (max-width: 1000px) {
+            body{
+                flex-direction: column;
+            }
+            .des {
+            margin-top: 10px;
+        }
+        }
+    </style>
+    <title>facebook</title>
+</head>
+<!-- MAIN PAGE -->
+
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo"><img src="./logo fb.jpg" alt="fb logo"></div>
+        <div class="login note white-color">
+            <div class="username">
+                <span><strong>Email or phone:</strong></span><br>
+                <input type="text"><br>
+                <input type="checkbox" class="grey-color"><span class="grey-color">Keep me logged in</span>
+            </div>
+            <div class="password">
+                <span><strong>Password:</strong></span><br>
+                <input type="password"><br>
+                <a href="" class="grey-color">Forgot your password?</a>
+            </div>
+            <button class="login-btn">Log In</button>
+        </div>
+    </div>
+    <!-- LOGGIN - SIGNUP ON MOBILE -->
+    <div class="login-mobile">
+        <input type="text" placeholder="Email or phone">
+        <input type="password" placeholder="Password">
+        <button class="login-mobile-btn">Log In</button>
+        <a href="" class="grey-color note" style="align-self: center;">Forgot your password?</a>
+        <hr><br>
+        <button class="signup-btn" id="signup-mobile" onclick="signup_mobile()">Sign Up</button>
+    </div>
+    <!-- INTRO FB -->
+    <div class="des">
+        <h2>Connect with friends and the world around you on Facebook.</h2>
+        <div class="des1"><img src="./1.png" alt="photo"><span><strong>See your photo and updates </strong><span
+                    class="grey-color"> friends in News Feed.</span></span></div>
+        <div class="des2"><img src="./2.png" alt="photo"><span><strong>Share what's new </strong><span
+                    class="grey-color"> in your life on your Timeline.</span></span></div>
+        <div class="des3"><img src="./3.png" alt="photo"><span><strong>Find more </strong><span class="grey-color"> of
+                    what you're looking for with Graph Search.</span></span></div>
+    </div>
+    <!-- SIGN UP -->
+    <div class="signup">
+        <h1>Sign Up</h1>
+        <span>I'll free and always will be</span>
+        <div class="input-group">
+            <div class="name">
+                <input type="text" class="fname" placeholder="First name" id="fname">
+                <input type="text" class="lname" placeholder="Last name" id="lname">
+            </div>
+            <input type="text" class="email-mobile" placeholder="Email or mobile number" id="email-mobile">
+            <input type="text" class="email-mobile" placeholder="Re-enter Email or mobile number"
+                id="email-mobile-repeat">
+            <input type="password" class="new-password" placeholder="New password" id="new-password">
+        </div>
+        <div class="birthday">
+            <p>Birthdays</p>
+            <div class="choose-birthday">
+                <div>
+                    <select name="day" id="choose-month"></select>
+                    <select name="day" id="choose-day"></select>
+                    <select name="day" id="choose-year"></select>
+                </div>
+                <p>
+
+                    <a href="" class="note">Why do you need to provide my Birthdays?</a>
+                </p>
+            </div>
+        </div>
+        <div class="gender">
+            <input type="checkbox" id="female-check" onclick="gender()"><span>Female</span>
+            <input type="checkbox" id="male-check" onclick="gender()"><span>Male</span>
+        </div>
+        <p class="note grey-color">By clicking Sign Up, you agree to our <a href="">Term</a> and that you have read
+            our<a href=""> Data Use
+                Policy</a> including <a href="">Cooki Use</a>.</p>
+        <div id="err"></div>
+        <div>
+            <button class="signup-btn" onclick="signup()">Sign Up</button>
+        </div>
+        <hr>
+        <p class="note"><strong><a href="">Creating page</a></strong> for a celebrity, bank or business.</p>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="languages note">
+            <div><a href="">Tiếng Việt</a></div>
+            <div><a href="">English (UK)</a></div>
+            <div><a href="">中文(台灣)</a></div>
+            <div><a href="">한국어</a></div>
+            <div><a href="">日本語</a></div>
+            <div><a href="">Français (France)</a></div>
+            <div><a href="">ภาษาไทย</a></div>
+            <div><a href="">Español</a></div>
+            <div><a href="">Português (Brasil)</a></div>
+            <div><a href="">Deutsch</a></div>
+            <div><button>+</button></div>
+        </div>
+        <hr>
+        <div class="link-list note">
+            <div><a href="">Sign Up</a></div>
+            <div><a href="">Login</a></div>
+            <div><a href="">Mobile</a></div>
+            <div><a href="">Find friends</a></div>
+            <div><a href="">Badges</a></div>
+            <div><a href="">People</a></div>
+            <div><a href="">Places</a></div>
+            <div><a href="">Pages</a></div>
+            <div><a href="">Games</a></div>
+        </div>
+    </footer>
+</body>
+<!-- SCRIPT JS - NOT JQUERY -->
+<script>
+    $(document).ready(function () {
+        // NGÀY THÁNG
+        let day_html = '<option value="">Day</option>';
+        let month_html = '<option value="">Month</option>';
+        let year_html = '<option value="">Year</option>';
+        for (let i = 1; i <= 31; i++) {
+            day_html += '<option value=' + i + '>' + i + '</option>'
+        }
+        document.getElementById("choose-day").innerHTML = day_html; //$(#choose-day).html(day_html);
+        for (let j = 1; j <= 12; j++) {
+            month_html += '<option value=' + j + '>' + j + '</option>'
+        }
+        document.getElementById("choose-month").innerHTML = month_html;
+        for (let t = 2022; t > 1905; t--) {
+            year_html += '<option value=' + t + '>' + t + '</option>'
+        }
+        document.getElementById("choose-year").innerHTML = year_html;
+    });
+    // CHỌN GIỚI TÍNH
+    function gender() {
+        let female_check = document.getElementById("female_check");
+        let male_check = document.getElementById("male_check");
+        if (female_check.checked == true) {
+            male_check.checked == false;
+        }
+
+    }
+    // VALIDATE - ĐĂNG KÝ
+    function signup() {
+        let fname = document.getElementById("fname").value; //$(#fname).val
+        let lname = document.getElementById("lname").value;
+        let pass = document.getElementById("new-password").value;
+        let email = document.getElementById("email-mobile").value;
+        let email_repeat = document.getElementById("email-mobile-repeat").value;
+        let check_validate = true;
+        let err = '';
+        //check empty
+        if (fname.length == 0 || lname.length == 0 || email.length == 0 || email_repeat.length == 0) {
+            check_validate = false;
+            err += '<p> Name or email is empty </p>';
+        }
+        // check name (lengt and not have number)
+        if (fname.length > 20 || lname.length > 20) {
+            check_validate = false;
+            err += '<p> Name too long (bigger than 20 char) </p>';
+        }
+        for (let i = 0; i < fname.length; i++) {
+            if (!isNaN(fname.charAt(i))) {
+                check_validate = false;
+                err += '<p> First Name has number </p>';
+                break
+            }
+        }
+        for (let j = 0; j < lname.length; j++) {
+            if (!isNaN(lname.charAt(j))) {
+                check_validate = false;
+                err += '<p> Last Name has number</p>';
+                break
+            }
+        }
+        // check email form
+        let isValid_mail = false;
+        for (let t = 1; t < email.length - 2; t++) {
+            console.log(email.charAt(t));
+            if (email.charAt(t) == '@') {
+                for (let u = t + 1; u < email.length - 1; u++) {
+                    if (email.charAt(u) == '.') {
+                        isValid_mail = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (isValid_mail == false) {
+            check_validate = false;
+            err += '<p> Email form must have: xxxx@xx.xx</p>';
+        }
+        if (email !== email_repeat) {
+            check_validate = false;
+            err += '<p> Retype email not valid</p>';
+        }
+        // check password (min 8char)
+        if (pass.length < 8) {
+            check_validate = false;
+            err += '<p> Password must have minimum 8 character</p>';
+        }
+        // view mesages when success sign up
+        document.getElementById("err").innerHTML = '<p>Warning:</p>' + err + '<p>Please try again!</p>';//$(#err).html(err);
+        if (check_validate) {
+            document.getElementById("err").innerHTML = '';
+            window.alert("Welcome to Facebook");
+        }
+    }
+    // SIGN UP MOBILE
+    function signup_mobile(){
+        document.getElementsByClassName("signup")[0].style.display = "block"; //$('.signup').css('display','block');
+        // document.getElementsByClassName("login-mobile")[0].style.display = "none"; 
+        document.getElementById("signup-mobile").style.display = "none";
+    }
+</script>
+
+</html>
