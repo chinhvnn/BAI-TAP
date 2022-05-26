@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="click1">click 1 - ++count</button>
+    <button id="click2">click 2 - ++count</button>
+    <button id="click3">click 3 - bind(this) clousures</button>
+    <button id="click4">click 3 - gán this clousures</button>
+    
+</body>
+<script>
+    function click(){
+        var c = 0;
+        function clickChild(){
+            c++;
+            console.log(c);
+        };
+        return clickChild;
+    }
+    document.getElementById('click1').addEventListener('click', click());
+    document.getElementById('click2').addEventListener('click', click());
+    
+    tax = {
+        rate : 0.75,
+        calc: function (sub){
+            return (sub + (sub +this.rate).toFixed(2))
+        },
+        displayFullPrice : function(total){
+            return function(){
+                alert("Full prcie = "+ this.calc(total));
+            }.bind(this);
+        },
+        displayFullPrice2 : function(total2){
+            var that = this;
+            return function(){
+                alert("Full price = "+ this.id + "   $"+ that.calc(total2));
+            }
+        }
+
+
+
+    }
+    document.getElementById('click3').addEventListener('click', tax.displayFullPrice(125));
+    document.getElementById('click4').addEventListener('click', tax.displayFullPrice2(125));
+
+</script>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title>Student Manager</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-8 p-4">
+            <h3 class="m-3 text-center">STUDENT MANAGER</h3>
+            <!-- <form> -->
+                <div class="form-group row">
+                    <label for="fullName" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="fullName" placeholder="Full Name">
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label for="className" class="col-sm-3 col-form-label">Class Name</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="className" placeholder="Class Name">
+                    </div>
+                </div>
+                 <div class="form-group row">
+                    <label for="birthDay" class="col-sm-3 col-form-label">Birthday</label>
+                    <div class="col-sm-8">
+                      <input type="date" class="form-control" id="birthDay" placeholder="Birth Day">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" id="btnAdd">ADD</button>
+                    <button class="btn btn-secondary" id="btnClearForm">CLEAR</button>
+                </div>
+            <!-- </form> -->
+        </div>
+        <div class="col-md-8 mb-5" id="managerTable">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">CLASS</th>
+                    <th scope="col">BIRTHDAY</th>
+                    <th scope="col">AGE</th>
+                    <th scope="col">ADDRESS</th>
+                    <th scope="col">ACTION</th>
+                </tr>
+                </thead>
+                <tbody id="dataTable">
+                    <!-- renderTableData() here -->
+                </tbody>
+              </table>
+              <!-- PAGINATION -->
+              <div id="pag">
+                  <div id="data-container"></div>
+              </div>
+        </div>
+    </div>
+    <footer class="bg-light">CHINHVNN</footer>
+</body>
+<script src="./pag.js"></script>
+<script>
+    //-- INIT----------------------------//
+    var arrStd = JSON.parse(localStorage.getItem('dataStudent')) || [];
+    renderTableData(arrStd);
+
+    //-- ADD STUDENT ----------------------//
+    $("#btnAdd").click(function addStudent(){
+        arrStd.push({
+            id: (arrStd.length > 0)?(arrStd[arrStd.length-1].id + 1):1,
+            fullName: $('#fullName').val(),
+            className: $('#className').val(),
+            birthDay: $('#birthDay').val(),
+            age: (new Date).getFullYear() - (new Date($('#birthDay').val())).getFullYear(),
+            add: ''
+        });
+        refreshData();
+        
+    });
+
+    //--REMOVE STUDENT-----------------------------//
+    function removeStudent(item){
+        let data_id  = $(item).attr('data-id');
+        arrStd.splice(arrStd.findIndex((val) => val.id == data_id), 1);
+        refreshData();
+    };
+
+    //--UPDATE STUDENT-------------------------//
+    function updateStudent(item){
+        let data_id  = $(item).attr('data-id');
+        $(item).parents('tr').attr('contenteditable','true');
+        $(item).parents('tr').css('background-color','#cce6ff');
+        $(item).parents('tr').focus();
+    };
+    function onBlurEdit(item){
+        let data_id  = $(item).attr('data-id');
+        $(item).attr('contenteditable','false');
+        $(item).css('background-color','transparent');
+
+        arrStd.map((oj) => {
+            if (oj.id == data_id){
+                oj.fullName = $(item).children('td:eq(0)').text();
+                oj.className = $(item).children('td:eq(1)').text();
+                oj.birthDay = $(item).children('td:eq(2)').text();
+                oj.age = $(item).children('td:eq(3)').text();
+                oj.add = $(item).children('td:eq(4)').text();
+            }
+        });
+        refreshData();
+    };
+
+    //--CLEAR FORM------------------------------//
+    $("#btnClearForm").click(function clearForm(){
+        $('input').val('');
+    });
+
+     //--REFRESH DATA------------------------------//
+     function refreshData() {
+        // $('#mamagerData').load(location.href + " #mamagerData");
+        localStorage.setItem('dataStudent',JSON.stringify(arrStd));
+        renderTableData(arrStd);
+        location.reload();
+     }
+
+    //--RENDER DATA-----------------------------------//
+    function renderTableData(arr) {
+        let strRender='';
+        for (const i of arr) {
+            strRender+=
+            `<tr contenteditable='false' onBlur='onBlurEdit(this)' data-id='${i.id}'>
+                <th scope="row" contenteditable='false'>${i.id}</th>
+                <td>${i.fullName}</td>
+                <td>${i.className}</td>
+                <td>${i.birthDay}</td>
+                <td>${i.age}</td>
+                <td>${i.add}</td>
+                <td contenteditable='false'>
+                <button class="btn btn-sm btn-success m-1" data-id='${i.id}' onclick='updateStudent(this)'>
+                    UPDATE</button>
+                <button class="btn btn-sm btn-warning m-1" data-id='${i.id}' onclick='removeStudent(this)'>
+                    DELETE</button>
+                </td>
+            </tr>
+                `
+            }
+            $('#dataTable').html(strRender);
+            // return strRender;
+        }
+    // -- PAGINATES ------------------------------//
+    $('#pag').pagination({
+    dataSource: arrStd,
+    pageSize: 3,
+    callback: function(arrStd, pagination) {
+        // template method of yourself
+        var html = renderTableData(arrStd);
+        $('#data-container').html(html);
+    }
+    })
+
+ 
+</script> 
+</html>
