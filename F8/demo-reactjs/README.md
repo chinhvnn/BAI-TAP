@@ -1,3 +1,7 @@
+# MANAGER STUDENT (TO-DO-LIST)
+-  Sử dụng class component
+- Chức năng: Thêm - Xóa 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
