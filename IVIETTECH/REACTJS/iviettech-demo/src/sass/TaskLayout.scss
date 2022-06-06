@@ -1,0 +1,17 @@
+.task-layout{
+    margin: 0 auto;
+    text-align: center;
+    width: 500px;
+    padding: 0px 30px 0px 30px;
+    border: 1px blueviolet solid;
+    border-radius: 10px
+}
+
+.task-post-item{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    p {
+        text-align: start;
+    }
+}
