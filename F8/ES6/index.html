@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>ES6</title>
+</head>
+<body>
+    <div>
+        <h2>TEST CLOSURE FUNC</h2>
+        <button id="click11">CLICK 1</button>
+        <button id="click2">CLICK 2</button>
+    </div>
+    <div>
+
+    </div>
+</body>
+<script>
+
+    // TEST CLOSURE
+    function cl2() {
+        let x = 0;
+        x++;
+        console.log(x);
+        return x;
+    }
+
+     function cl() {
+        let c = 0;
+        
+        return {
+            click1 : function() {
+                        c++;
+                        return c;
+                        }
+        };
+    } 
+    let x = cl();
+    
+    $('#click11').click(function (e) { 
+        e.preventDefault();
+        console.log(x.click1());
+        
+        cl2();
+    });
+    
+    // TEST PROTOTYPE STRING
+    //your code here
+    String.prototype.camelCase=function(){
+    return this.split(" ").map( (dg) => dg.charAt(0).toUpperCase() + dg.slice(1)).join('');
+}
+    
+    
+        // console.log(typeof 'Do We have A Hashtag'.charAt(0).toUpperCase());
+        let str = 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Cat'
+        console.log(("code" + " ".repeat(140) + "wars").split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1)).join(''));
+        console.log(str.split(' ').join('').length);
+        console.log(str.length);
+
+        console.log(3600/1000)
+    
+</script>
+</html>
