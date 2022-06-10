@@ -8,6 +8,11 @@ footer{
     margin-top: 10px;
 }
 
+/* STYLE FONT AWESOME */
+.fa {
+    color: chartreuse;
+}
+
 /* PAGINATION */
 .paginationjs {
     line-height: 1.6;

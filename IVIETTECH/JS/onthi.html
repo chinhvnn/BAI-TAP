@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .group-input {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+            margin-bottom: 10px;
+            border: 1px red solid;
+        }
+
+        .group-btn {
+            text-align: center;
+            width: 300px;
+            border: 1px red solid;
+        }
+
+        #regModal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        #regModalContent {
+            background-color: #fefefe;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        .slide {
+            position: absolute;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- LOGIN -->
+    <div>
+        <form action="">
+            <div class="group-input">
+                <label for="inputLoginEmail">Email: </label>
+                <input type="email" name="loginEmail" id="inputLoginEmail">
+            </div>
+            <div class="group-input">
+                <label for="inputLoginPassword">Password: </label>
+                <input type="password" name="loginPass" id="inputLoginPassword">
+            </div>
+            <div class="group-btn">
+                <button type="button" id="clickLogin">id="clickLogin"Login</button>
+                <button type="button" id="clickRegPage">Register</button>
+            </div>
+            <p id="validation" style="color: red;"></p>
+        </form>
+    </div>
+    <!-- REG MODAL -->
+    <div id="regModal">
+        <div id="regModalContent">
+            <form action="">
+                <div class="group-input">
+                    <label for="inputRegEmail">Email: </label>
+                    <input type="email" name="regEmail" id="inputRegEmail">
+                </div>
+                <div class="group-input">
+                    <label for="inputPassword">Password: </label>
+                    <input type="password" name="regPassword" id="inputRegPassword">
+                </div>
+                <div class="group-input">
+                    <label for="inputGender">Male: </label>
+                    <input type="radio" name="regGender" value="male" checked>
+                    <label for="inputGender">Female: </label>
+                    <input type="radio" name="regGender" value="female">
+                </div>
+                <div class="group-btn">
+                    <button type="button" id="clickSubmitReg">Register</button>
+                    <button type="button" id="clickCloseRegPage">Close</button>
+                </div>
+                <p id="validationReg" style="color: red;"></p>
+            </form>
+        </div>
+    </div>
+    <!-- SLIDE -->
+
+    <div style="position: relative;">
+        <div class='slide' style="width: 100px; height: 200px; background-color: red;"></div>
+        <div class='slide' style="width: 100px; height: 200px; background-color: rgb(0, 255, 64);"></div>
+        <div class='slide' style="width: 100px; height: 200px; background-color: rgb(135, 26, 179);"></div>
+    </div>
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    //INIT
+    dataArr = JSON.parse(localStorage.getItem('dataUserTest')) || [];
+    dataArr.push({
+        email: "chinh@gmail.com",
+        password: "1234",
+        gender: 'male'
+    },
+        {
+            email: "chinh2@gmail.com",
+            password: "123",
+            gender: 'female'
+        },
+
+    );
+
+
+    //LOGIN CLICK
+    document.getElementById('clickLogin').addEventListener('click', function (e) {
+        e.preventDefault();
+        const emailLogin = $("#inputLoginEmail").val();
+        const passLogin = $("#inputLoginPassword").val();
+        for (const i of dataArr) {
+            console.log(emailLogin, passLogin);
+            if ((emailLogin == i.email) && (passLogin == i.password)) {
+                sessionStorage.setItem('dataUserTest-' + i.email, 1);
+                window.location.href = './home'
+            }
+        }
+    });
+
+    //REG CLICK
+    $('#clickRegPage').click(function (e) {
+        e.preventDefault();
+        $('#regModal').show()
+    });
+
+    //REG MODAL
+    $('#regModalContent').click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('#clickSubmitReg').click(function (e) {
+        e.preventDefault();
+
+        const emailReg = $("#inputRegEmail").val();
+        const passReg = $("#inputRegPassword").val();
+        const genderReg = $("input[name=regGender]:checked").val();
+
+        if (dataArr.find(v => v.email == emailReg)) {
+            console.log('TRUNG EMAAL')
+        }
+        else if (validation(emailReg, passReg) == '') {
+            console.log('ok');
+            $("#validationReg").html('');
+            dataArr.push({
+                email: emailReg,
+                password: passReg,
+                gender: genderReg
+            });
+            localStorage.setItem('dataUserTest', JSON.stringify(dataArr))
+        } else {
+            $("#validationReg").html(validation(emailReg, passReg))
+        }
+
+
+
+    });
+
+    //REG MODAL CLOSE
+    $('#clickCloseRegPage').click(function () {
+        $('#regModal').hide();
+    });
+
+    window.onclick = function (event) {
+        if (event.target == $('#regModal')[0]) {
+            console.log('1231213');
+            $('#regModal').hide();
+        }
+    }
+
+    //VALIDATION
+    function validation(email, pass) {
+        let rs = '';
+        console.log(email, pass);
+        //EMAIL
+        rs += (/^(\w[\.]{0,1}){8,30}[@][\w]+[\.][\w]+$/gi).test(email) ? '' : 'Email: <br>- Định dạng [a-z][._]@hostmail.domain <br>- Độ dài từ 8-30 ký tự<br>';
+        //PASSWORD
+        rs += (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[\`\~\!\@\#\$\%\^\&\*\(\)\-\_\=\+\=]).{8,24}$/g).test(pass) ? '' : 'Password: <br>- Độ dài từ 8-24 ký tự <br>- Có ít nhất 1 ký tự viết hoa, 1 chữ số và 1 ký tự đặc biệt<br>';
+        console.log(rs);
+        return rs;
+    }
+
+    //SLIDE
+    // let index = 1;
+    // function slide() {
+    //     let x = document.getElementsByClassName('slide')
+    //     for (let i = 0; i < array.length; i++) {
+    //         if (i == index){
+    //             x[i].style.display = 'block';
+    //             index++;
+    //             break;
+    //         }
+            
+    //     }
+    // }
+
+    // setInterval(slide(),100)
+    // console.log(x);
+
+
+    let obj = {
+        id : 1,
+        name : 'name1111'
+    }
+
+    for (const key in obj) {
+        console.log(key, obj[key]);
+    }
+
+
+
+</script>
+
+</html>

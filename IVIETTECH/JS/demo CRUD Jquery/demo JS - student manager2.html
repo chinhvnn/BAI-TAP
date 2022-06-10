@@ -67,9 +67,34 @@
 <script src="./pag.js"></script>
 <script>
     //-- INIT----------------------------//
-    var arrStd = JSON.parse(localStorage.getItem('dataStudent')) || [];
     renderTableData(arrStd);
+    
+    function studentManager() {
+        var arrStd = JSON.parse(localStorage.getItem('dataStudent')) || [];
 
+
+        function studentMethod(){
+            return {    
+                getData
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //-- ADD STUDENT ----------------------//
     $("#btnAdd").click(function addStudent(){
         arrStd.push({
@@ -81,7 +106,6 @@
             add: ''
         });
         refreshData();
-        
     });
 
     //--REMOVE STUDENT-----------------------------//
@@ -102,7 +126,7 @@
         let data_id  = $(item).attr('data-id');
         $(item).attr('contenteditable','false');
         $(item).css('background-color','transparent');
-        
+
         arrStd.map((oj) => {
             if (oj.id == data_id){
                 oj.fullName = $(item).children('td:eq(0)').text();
@@ -112,7 +136,7 @@
                 oj.add = $(item).children('td:eq(4)').text();
             }
         });
-        localStorage.setItem('dataStudent',JSON.stringify(arrStd));
+        refreshData();
     };
 
     //--CLEAR FORM------------------------------//
@@ -122,21 +146,9 @@
 
      //--REFRESH DATA------------------------------//
      function refreshData() {
-        localStorage.setItem('dataStudent',JSON.stringify(arrStd));
-        //Pagination
-        $('#pag').pagination({
-        dataSource: arrStd,
-        pageSize: 3,
-        callback: function(arrStd, pagination) {
-            // template method of yourself
-            var html = renderTableData(arrStd);
-            $('#data-container').html(html);
-            // console.log(renderTableData(arrStd));
-        }
-        })
-        
-         //  renderTableData(arrStd);
-        //  $('#mamagerData').load(location.href + " #mamagerData");
+         localStorage.setItem('dataStudent',JSON.stringify(arrStd));
+         renderTableData(arrStd);
+         $('#mamagerData').load(location.href + " #mamagerData");
         // location.reload();
      }
 
@@ -165,18 +177,19 @@
             // return strRender;
         }
     // -- PAGINATES ------------------------------//
-    window.onload = function(){
-        var pagingHome = $('#pag').pagination({
+    window.onload(
+        $('#pag').pagination({
         dataSource: arrStd,
         pageSize: 3,
         callback: function(arrStd, pagination) {
             // template method of yourself
             var html = renderTableData(arrStd);
-            
             $('#data-container').html(html);
         }
         })
-    }
         
+    )
+
+ 
 </script> 
 </html>
