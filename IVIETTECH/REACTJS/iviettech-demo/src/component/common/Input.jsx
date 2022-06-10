@@ -8,7 +8,10 @@ export default class Input extends Component {
       className='input-default'
       value={this.props.value}
       name={this.props.name}
-      onChange={this.props.handleOnChane}
+      type={this.props.type}
+      onChange={this.props.handleOnChange}
+      onBlur={this.props.handleOnBlur}
+      ref={this.props.handleRef}
       ></input>
     )
   }

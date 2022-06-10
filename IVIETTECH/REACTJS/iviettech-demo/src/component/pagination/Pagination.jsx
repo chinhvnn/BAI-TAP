@@ -2,38 +2,38 @@ import React, { Component } from "react";
 
 export default class Pagination extends Component {
   render() {
+    const {totalPage, currentPage} = this.props
+
+    let arrPage = [];
+    for (let i = 1; i <= totalPage; i++) {
+      arrPage.push(i);
+    }
     return (
-     
-        <ul className="pagination">
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">«</span>
-              <span className="sr-only">Previous</span>
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              1
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              2
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#">
-              3
-            </a>
-          </li>
-          <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">»</span>
-              <span className="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-   
+      <ul className="pagination">
+        <li className="page-item">
+          <a className="page-link" aria-label="Previous" name='previous' onClick={this.props.handlePagination}>
+            «
+          </a>
+        </li>
+        {
+          (totalPage > 5)? 
+          ""
+          :
+          (currentPage) && arrPage.map((val,index) => (
+            <li className="page-item" key={index}>
+              <a className="page-link" id={val} name='choose' style={(val==currentPage)?{backgroundColor: 'yellowgreen'}:{backgroundColor:''}}
+              onClick={this.props.handlePagination}
+              >{val}</a>
+            </li>
+          ))
+        }
+
+        <li className="page-item">
+          <a className="page-link" aria-label="Next" name='next' onClick={this.props.handlePagination}>
+            »
+          </a>
+        </li>
+      </ul>
     );
   }
 }
