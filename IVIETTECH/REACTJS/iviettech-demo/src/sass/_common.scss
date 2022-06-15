@@ -33,24 +33,46 @@ code {
         transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         cursor: pointer;
         border-color: rgb(0 123 255);
-    }
+        
+        &:hover {
+            color: rgb(255 255 255);
+            background-color: rgb(132, 183, 237);
+            border-color: rgb(132, 131, 227);
+        }
 
-    &-default:hover {
-        color: rgb(255 255 255);
-        background-color: rgb(132, 183, 237);
-        border-color: rgb(176, 188, 196);
     }
+    
 
     &-circle {
         border-radius: 50%;
     }
+    
     &-none {
         background-color: transparent;
     }
+    
+    &-special {
+        background-color: transparent;
+        padding: 0.1rem 0.35rem;
+        margin: 0.1rem;
+    }
+    
+    &-check {
+        border: none;
+        background-color: transparent;
+        padding: 0.1rem 0.35rem;
+        margin: 0.1rem;
+    }
+    &-check:hover {
+        color: rgb(255 255 255);
+        background-color: rgb(132, 183, 237);
+        border-color: rgb(235, 48, 6);
+    }
+
 }
 
 .input {
-    &-default {
+    &-default[type="text"] {
         width: 75%;
         padding: 0.375rem 0.75rem;
         font-size: 1rem;
@@ -61,17 +83,29 @@ code {
         border: 1px solid rgb(206 212 218);
         border-radius: 0.25rem;
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        &:focus {
+            color: rgb(73 80 87);
+            background-color: rgb(255 255 255);
+            border-color: rgb(128 189 255);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+        }
     }
 
-    &-default:focus {
-        color: rgb(73 80 87);
-        background-color: rgb(255 255 255);
-        border-color: rgb(128 189 255);
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
-    }
+
+    
+
 }
 
-.green-color{
-    color: blue;
-}   
+.color-red{
+    color: red;
+}
+.color-light{
+    color: rgb(248 249 250);
+}
+.color-gray{
+    color: gray;
+}
+.color-blue{
+    color: dodgerblue;
+}

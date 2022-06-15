@@ -4,7 +4,6 @@ class Button extends Component {
         return (
             <button className={'btn-default '+this.props.classProps} 
                     onClick={this.props.handleClick}
-                    onBlur={this.props.handelBlur}
                     >
                     {this.props.title}
             </button>

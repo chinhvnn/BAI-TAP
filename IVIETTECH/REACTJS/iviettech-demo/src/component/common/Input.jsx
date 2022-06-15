@@ -6,12 +6,15 @@ export default class Input extends Component {
     return (
       <input placeholder={this.props.placeholder} 
       className='input-default'
-      value={this.props.value}
-      name={this.props.name}
       type={this.props.type}
+      name={this.props.name}
+      value={this.props.value}
+      id={this.props.id}
+      checked={this.props.checked}
       onChange={this.props.handleOnChange}
       onBlur={this.props.handleOnBlur}
       ref={this.props.handleRef}
+      onKeyUp={this.props.handlePressKey}
       ></input>
     )
   }
